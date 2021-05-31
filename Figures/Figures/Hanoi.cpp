@@ -136,10 +136,26 @@ void HanoiPath::addMove(int a, int b)
 	m_path.append(move);
 }
 
+
+void drawArrow(QPainter& pa)
+{
+	QPainterPath pp;
+	double w = 5;
+	pp.moveTo(- 20 - w,- 40);
+	pp.lineTo( + 20 - w, 0);
+	pp.lineTo(- 20 - w, 40);
+
+	pa.setPen(QPen(Qt::white, 15, Qt::SolidLine, Qt::SquareCap, Qt::MiterJoin));
+	pa.setBrush(Qt::NoBrush);
+	pa.drawPath(pp);
+}
+
+
 void HanoiPath::paint(QPainter& pa, int w, int h)
 {
 	buildPath();
-	double d = outradius * 2.2;
+	double dy = outradius * 2.2;
+	double dx = dy * 1.2;
 
 	int m = m_path.count();
 	int ncol = (int)ceil(sqrt((double)m));
@@ -147,36 +163,38 @@ void HanoiPath::paint(QPainter& pa, int w, int h)
 	double mrg = outradius;
 
 
-	double sc = qMin(w / (ncol * d + 2*mrg), h / (nrow * d + 2 * mrg));
+	double sc = qMin(w / (ncol * dx + 2*mrg), h / (nrow * dy + 2 * mrg));
 
-	double x0 = 0.5 * d + 0.5 * (w / sc - ncol * d);
-	double y0 = 0.5 * d + 0.5 * (h / sc - nrow * d);
+	double x0 = 0.5 * dx + 0.5 * (w / sc - ncol * dx);
+	double y0 = 0.5 * dy + 0.5 * (h / sc - nrow * dy);
 
 	pa.save();
 	pa.scale(sc, sc);
 
+
 	QPainterPath pp;
 	double xa = x0 - outradius * 0.5;
-	double xb = x0 + (ncol - 1) * d + outradius * 0.5;
+	double xb = x0 + (ncol - 1) * dx + outradius * 0.5;
 
 	pp.moveTo(x0, y0);
 	for (int i = 0; i+1 < nrow; i++) 
 	{
-		double y = y0 + d * i;
+		double y = y0 + dy * i;
 		if ((i & 1) == 0)
 		{
-			pp.lineTo(xb, y0 + i * d);
-			pp.arcTo(QRectF(xb - d / 2, y, d, d), 90, -180);
+			pp.lineTo(xb, y0 + i * dy);
+			pp.arcTo(QRectF(xb - dy / 2, y, dy, dy), 90, -180);
 		}
 		else
 		{
-			pp.lineTo(xa, y0 + i * d);
-			pp.arcTo(QRectF(xa - d / 2, y, d, d), 90, 180);
+			pp.lineTo(xa, y0 + i * dy);
+			pp.arcTo(QRectF(xa - dy / 2, y, dy, dy), 90, 180);
 		}
 	}
 	int lastRow = nrow - 1;
 	int lastCol = (m - 1) % ncol;
-	pp.lineTo(x0 + d * lastCol, y0 + lastRow * d);
+	if (lastRow & 1) lastCol = ncol - 1 - lastCol;
+	pp.lineTo(x0 + dx * lastCol, y0 + lastRow * dy);
 
 	pa.setPen(QPen(QColor(220, 220, 220), 50));
 	pa.setBrush(Qt::NoBrush);
@@ -188,10 +206,75 @@ void HanoiPath::paint(QPainter& pa, int w, int h)
 		if (row & 1) col = ncol - 1 - col;
 
 		pa.save();
-		pa.translate(x0 + d * col, y0 + d * row);
+		pa.translate(x0 + dx * col, y0 + dy * row);
 		drawMove(pa, m_path[i]);
 		pa.restore();
+
+		/*
+		if ((i % ncol) > 0)
+		{
+			double sgn = (row & 1) ? -1 : 1;
+			double delta = -0.5 * sgn;
+
+			QPointF p(x0 + dx * (col + delta), y0 + dy * row);
+
+			QPainterPath pp;
+			double w = 5;
+			pp.moveTo(p.x() - 20*sgn - w, p.y() - 40);
+			pp.lineTo(p.x() + 20*sgn - w, p.y());
+			pp.lineTo(p.x() - 20*sgn - w, p.y() + 40);
+
+			pa.setPen(QPen(Qt::white, 10, Qt::SolidLine,Qt::SquareCap, Qt::MiterJoin));
+			pa.setBrush(Qt::NoBrush);
+			pa.drawPath(pp);
+
+		}
+		*/
+
 	}
+
+	// draw arrows
+	for (int i = 0; i < m; i++) {
+		int row = i / ncol;
+		int col = i % ncol;
+		if (row & 1) col = ncol - 1 - col;
+		if ((i % ncol) > 0)
+		{
+			double sgn = (row & 1) ? -1 : 1;
+			double delta = -0.5 * sgn;
+
+			QPointF p(x0 + dx * (col + delta), y0 + dy * row);
+			pa.save();
+			pa.translate(p);
+			if (sgn < 0) pa.rotate(180);
+			::drawArrow(pa);
+			pa.restore();
+		}
+		else if (row < nrow - 1)
+		{
+			double x = (row & 1) == 0 ? xb - dy / 2 : xa - dy / 2;
+
+
+			QPointF p = ((row & 1) == 0)
+				? QPointF(xb - dy / 2 + dy, y0 + dy * row + dy * 0.5)
+				: QPointF(xa - dy / 2, y0 + dy * row + dy * 0.5);
+
+			//pa.setPen(Qt::magenta);
+			//pa.drawEllipse(p, 5, 5);
+
+			pa.save();
+			pa.translate(p + QPointF(0,-3));
+			pa.rotate(90);
+			::drawArrow(pa);
+			pa.restore();
+
+		}
+
+	}
+
+
+
+
 	pa.restore();
 
 }

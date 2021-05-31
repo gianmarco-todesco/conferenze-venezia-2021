@@ -2,7 +2,7 @@ fig1.
 The shortest solution (15 steps) for the Hanoi Tower Puzzle with 4 disks
 
 fig2.
-A non optimal solution (53 steps). This solution contains no repetition.
+A non optimal solution (53 steps). The solution contains no repetition.
 
 fig3.
 A Python program to compute the anagrams of "image".

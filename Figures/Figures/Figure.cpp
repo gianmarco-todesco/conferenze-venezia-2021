@@ -4,7 +4,7 @@
 
 void Figure::save(const QString& fname)
 {
-	int w=1024, h=768;
+	int w=2048, h=1536;
 	QImage image(w, h, QImage::Format_RGB32);
 	QPainter pa;
 	pa.begin(&image);
