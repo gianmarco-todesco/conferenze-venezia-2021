@@ -1,0 +1,36 @@
+fig1.
+The shortest solution (15 steps) for the Hanoi Tower Puzzle with 4 disks
+
+fig2.
+A non optimal solution (53 steps). This solution contains no repetition.
+
+fig3.
+A Python program to compute the anagrams of "image".
+
+fig4.
+The original 1904 Droste cacao tin, designed by Jan Misset (1861–1931)
+[image is in the public domain]
+
+fig5.
+An expample of the Droste Effect. Made with GIMP (GNU Image Manipulation Program) and the MathMap plugin.
+
+fig6. 
+(a) The Dragon Curve: first 12 steps  
+(b) 18-th step 
+
+fig7.
+Some commands in the JavaScript language to draw the Dragon Curve with an Internet Browser (e.g. Google Chrome).
+Create a new tab, them open the console (ctrl + shift + J). Copy very carefully the code in the console and hit return.  
+
+fig8.
+The Dragon Curve can tessellate the plane.
+
+fig9.
+The Hilbert Curve can fill a square
+
+fig10.
+
+fig11.
+
+
+
