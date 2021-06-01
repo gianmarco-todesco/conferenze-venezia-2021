@@ -110,7 +110,7 @@ void Sierpinski2::paint(QPainter& pa, int w, int h)
 	{
 		int col = i % ncol;
 		int row = i / ncol;
-		qDebug() << col << row;
+		// qDebug() << col << row;
 		pa.save();
 		pa.translate(w1 * (col + 0.5), h1 * (row + 2.0/3.0));
 		if (i == ncol * nrow - 1) drawLast(pa, 8, r);
@@ -123,7 +123,7 @@ void Sierpinski2::draw(QPainter& pa, int level, double r)
 {
 	QPainterPath grid;
 	buildGrid(grid, 3, corners[1] * r, corners[0] * r, corners[2] * r);
-	pa.setPen(QPen(QColor(220,220,220), 0));
+	pa.setPen(QPen(QColor(120, 120, 120), 0));
 	pa.setBrush(Qt::NoBrush);
 	pa.drawPath(grid);
 

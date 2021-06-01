@@ -55,16 +55,32 @@ void Dragon1::draw(QPainter& pa, int level, QPointF p0, QPointF p1)
 	if (level > 0 && level < 8)
 	{
 		QPainterPath pp;
-		makeDragon(pp, level - 1, p0, p1, 0.0);
-		QPen pen(QColor(200, 200, 200), 1, Qt::DashLine);
-		pa.setPen(pen);
+		makeDragon(pp, level - 1, p0, p1, level < 4 ? 0.0 : 0.2);
+		
+		if (level < 4)
+		{
+			QPen pen(QColor(200, 200, 200), 3, Qt::DashLine);
+			pen.setDashPattern(QVector<qreal> {5, 5});
+			pa.setPen(pen);
+		}
+		else if (level < 8)
+		{
+			QPen pen(QColor(200, 200, 200), 1.5, Qt::DashLine);
+			pa.setPen(pen);
+		}
+		else
+		{
+			QPen pen(QColor(200, 200, 200), 1, Qt::DashLine);
+			pa.setPen(pen);
+		}
+		
 		pa.drawPath(pp);
 	}
 	QPainterPath pp;
 	makeDragon(pp, level, p0, p1, level < 4 ? 0.0 : 0.2);
 	if (level < 4)
 	{
-		QPen pen(Qt::black, 2);
+		QPen pen(Qt::black, 3);
 		pen.setJoinStyle(Qt::RoundJoin);
 		pen.setCapStyle(Qt::RoundCap);
 		pa.setPen(pen);
@@ -78,14 +94,15 @@ void Dragon1::draw(QPainter& pa, int level, QPointF p0, QPointF p1)
 
 	pa.setPen(Qt::black);
 	pa.setBrush(Qt::black);
-	pa.drawEllipse(p0, 2, 2);
-	pa.drawEllipse(p1, 2, 2);
+	double r = level < 4 ? 4 : 2;
+	pa.drawEllipse(p0, r, r);
+	pa.drawEllipse(p1, r, r);
 
 }
 
 void Dragon1::paint(QPainter& pa, int w, int h)
 {
-	double mrg = 100.0;
+	double mrg = 100.0 * w/1024.0;
 	int ncol = 4;
 	int nrow = 3;
 
@@ -120,7 +137,8 @@ void Dragon2::paint(QPainter& pa, int w, int h)
 	
 
 	QList<QPointF> pts;
-	makeDragon(pts, 18, QPointF(0, 0), QPointF(100.0, 0.0), 1.0);
+	// 24 => risoluzione quadrupla: 8
+	makeDragon(pts, 20, QPointF(0, 0), QPointF(100.0, 0.0), 1.0);
 	double x0, y0, x1, y1;
 	x0 = x1 = pts[0].x();
 	y0 = y1 = pts[0].y();
@@ -228,9 +246,9 @@ void Dragon3::paint(QPainter& pa, int w, int h)
 
 void Dragon4::paint(QPainter& pa, int w, int h)
 {
-	double d = 400.0;
+	double d = 350.0 * w/1024.0;
 	QPainterPath pp;
-	makeDragon(pp, 17, QPointF(0, 0), QPointF(d, 0.0), 0.0);
+	makeDragon(pp, 22, QPointF(0, 0), QPointF(d, 0.0), 0.0);
 
 	QColor colors[] = {
 		QColor(200,200,100),

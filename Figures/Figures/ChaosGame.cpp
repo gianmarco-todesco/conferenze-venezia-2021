@@ -15,7 +15,7 @@ void ChaosGame::paint(QPainter& pa, int w, int h)
 	params.h = h;
 	if (m_mode == 0)
 	{
-		params.pointsCount = 10'000;
+		params.pointsCount = 100'000;
 		params.vCount = 3;
 	}
 	else
@@ -55,14 +55,14 @@ void ChaosGame::paint(QPainter& pa, const Params& params)
 	pp.moveTo(pts.back());
 	for (QPointF p : pts) pp.lineTo(p);
 	pa.setPen(Qt::NoPen); //  QPen(QColor(100, 100, 100), 5));
-	pa.setBrush(QColor(250, 250, 250)); //  Qt::NoBrush);
+	pa.setBrush(QColor(252, 252, 252)); //  Qt::NoBrush);
 	pa.drawPath(pp);
 	
 	QPointF p = QPointF(0, 0);
 	int m = params.pointsCount; 
 	QColor color;
-	if (m_mode == 0) color = QColor(0, 0, 0, 50);
-	else color = QColor(0, 0, 0, 10);
+	if (m_mode == 0) color = QColor(0, 0, 0, 100);
+	else color = QColor(0, 0, 0, 20);
 
 	for (int i = 0; i < m; i++)
 	{
@@ -92,8 +92,8 @@ void ChaosGame::paint(QPainter& pa, const Params& params)
 
 		pa.setPen(Qt::NoPen);
 		pa.setBrush(QColor(100, 200, 250));
-		for (QPointF p : path) pa.drawEllipse(p, 2, 2);
-		pa.setPen(QPen(QColor(100, 200, 250), 0));
+		for (QPointF p : path) pa.drawEllipse(p, 7, 7);
+		pa.setPen(QPen(QColor(100, 200, 250), 3));
 		pa.setBrush(Qt::NoBrush);
 		for (int i = 0; i + 1 < path.count(); i++)
 		{
@@ -101,11 +101,11 @@ void ChaosGame::paint(QPainter& pa, const Params& params)
 			QPointF e0 = p1 - p0;
 			e0 *= 1.0 / sqrt(e0.x() * e0.x() + e0.y() * e0.y());
 			QPointF e1(-e0.y(), e0.x());
-			p0 += 4 * e0;
-			p1 -= 4 * e0;
+			p0 += 8 * e0;
+			p1 -= 8 * e0;
 			pa.drawLine(p0, p1);
-			pa.drawLine(p1, p1 - e0 * 10 + e1 * 5);
-			pa.drawLine(p1, p1 - e0 * 10 - e1 * 5);
+			pa.drawLine(p1, p1 - e0 * 20 + e1 * 10);
+			pa.drawLine(p1, p1 - e0 * 20 - e1 * 10);
 		}
 
 	}
