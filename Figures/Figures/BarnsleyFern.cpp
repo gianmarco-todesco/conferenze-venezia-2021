@@ -70,7 +70,7 @@ void BarnsleyFern::paint(QPainter& pa, int w, int h)
 		pa.translate(m_center.x(), m_center.y());
 
 		QList<QPointF> pts;
-		makePoints(pts, 1'000'000);
+		makePoints(pts, 3'000'000);
 		drawSimple(pa, pts, unit);
 
 		// pa.setPen(Qt::black);
@@ -82,7 +82,7 @@ void BarnsleyFern::paint(QPainter& pa, int w, int h)
 	else
 	{
 		QList<QPointF> pts;
-		makePoints(pts, 100'000);
+		makePoints(pts, 1'000'000);
 
 		for (int i = 0; i < 4; i++) {
 			int col = i % 2;
@@ -120,9 +120,9 @@ void BarnsleyFern::drawSimple(QPainter& pa, QList<QPointF>& pts, double unit)
 void BarnsleyFern::draw(QPainter& pa, QList<QPointF>& pts, double unit, int mode)
 {
 	QColor green(0, 255, 0, 25);
-	QColor gray(220, 220, 220, 100);
+	QColor gray(230, 230, 230, 100);
 
-	double offset = 100;
+	double offset = 2.50 * unit;
 
 	// left image
 	pa.save();
@@ -133,7 +133,7 @@ void BarnsleyFern::draw(QPainter& pa, QList<QPointF>& pts, double unit, int mode
 		QPointF p = pt * unit;
 		pa.fillRect(p.x(), p.y(), 1, 1, green);
 	}
-	pa.setPen(QPen(QColor(100,100,100,100),0));
+	pa.setPen(QPen(QColor(100,100,100,100),2));
 	drawPolygon(pa, unit, base);
 
 	pa.restore();
@@ -162,9 +162,11 @@ void BarnsleyFern::draw(QPainter& pa, QList<QPointF>& pts, double unit, int mode
 		pa.fillRect(p.x(), p.y(), 1, 1, green);
 	}
 
-	pa.setPen(QPen(QColor(100, 100, 100), 0));
+	pa.setPen(QPen(QColor(100, 100, 100), 2));
 	drawPolygon(pa, unit, base, &f);
 	pa.restore();
+
+	const double dd = 2;
 
 	for (int i = 0; i < base.count(); i+=2)
 	{
@@ -179,8 +181,8 @@ void BarnsleyFern::draw(QPainter& pa, QList<QPointF>& pts, double unit, int mode
 		pa.setBrush(Qt::black);
 		QPainterPath pp;
 		pp.moveTo(p1);
-		pp.lineTo(p1 - e0 * 5 + e1 * 2);
-		pp.lineTo(p1 - e0 * 5 - e1 * 2);
+		pp.lineTo(p1 - e0 * 8 * dd + e1 * 2 * dd);
+		pp.lineTo(p1 - e0 * 8 * dd - e1 * 2 * dd);
 		pp.closeSubpath();
 		pa.drawPath(pp);
 

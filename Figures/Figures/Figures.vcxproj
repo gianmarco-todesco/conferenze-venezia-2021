@@ -92,7 +92,10 @@
     <ClCompile Include="Figure.cpp" />
     <ClCompile Include="Hanoi.cpp" />
     <ClCompile Include="Hilbert.cpp" />
+    <ClCompile Include="MengerSpongeSections.cpp" />
+    <ClCompile Include="Peano.cpp" />
     <ClCompile Include="Sierpinski.cpp" />
+    <ClCompile Include="Tree.cpp" />
     <ClCompile Include="Viewer.cpp" />
     <QtRcc Include="Figures.qrc" />
     <ClCompile Include="main.cpp" />
@@ -108,7 +111,10 @@
     <ClInclude Include="Figure.h" />
     <ClInclude Include="Hanoi.h" />
     <ClInclude Include="Hilbert.h" />
+    <ClInclude Include="MengerSpongeSections.h" />
+    <ClInclude Include="Peano.h" />
     <ClInclude Include="Sierpinski.h" />
+    <ClInclude Include="Tree.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

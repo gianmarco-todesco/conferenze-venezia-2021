@@ -91,31 +91,30 @@ public:
 	}
 };
 
+void drawSimpleGrid(QPainter& pa, const QRectF& rect, int level)
+{
+	int m = (1 << level);
+	for (int j = 1; j < m; j++)
+	{
+		double t = (double)j / (double)m;
+		double x = (1 - t) * rect.left() + t * rect.right();
+		pa.drawLine(x, rect.top(), x, rect.bottom());
+		double y = (1 - t) * rect.top() + t * rect.bottom();
+		pa.drawLine(rect.left(), y, rect.right(), y);
+	}
+}
+
 void drawGrid(QPainter& pa, const QRectF& rect, int level)
 {
-	QColor colors[] = {
-		QColor::fromHsl(0,0,0),
-		QColor::fromHsl(0,0,32),
-		QColor::fromHsl(0,0,64),
-		QColor::fromHsl(0,0,96),
-		QColor::fromHsl(0,0,128)
-	};
-	for (int i = qMin(5, level); i >= 0; i--)
+	pa.setPen(QPen(Qt::black, 0.5, Qt::DashLine));
+	drawSimpleGrid(pa, rect, level);
+
+	if (level > 0)
 	{
-		int m = (1 << i);
-		pa.setPen(QPen(colors[i], 0.5*(6 - i)));
-		
-		for (int j = 1; j < m; j++)
-		{
-			double t = (double)j / (double)m;
-			double x = (1 - t) * rect.left() + t * rect.right();
-			pa.drawLine(x, rect.top(), x, rect.bottom());
-			double y = (1 - t) * rect.top() + t * rect.bottom();
-			pa.drawLine(rect.left(),y, rect.right(), y);
-
-		}
-
+		pa.setPen(QPen(Qt::black, 1));
+		drawSimpleGrid(pa, rect, level - 1);
 	}
+
 	pa.setPen(QPen(Qt::black, 3));
 	pa.setBrush(Qt::NoBrush);
 	pa.drawRect(rect);
@@ -130,7 +129,7 @@ void Cloud::paint(QPainter& pa, int w, int h)
 	FImage img(bits);
 	for (int i = 0; i < 5; i++) images.push_back(std::make_unique<FImage>(bits));
 
-	QRandomGenerator randomGenerator(0x12347);
+	QRandomGenerator randomGenerator(m_seed);
 	for (int i = 0; i < 5; i++)
 	{
 		images[i]->build(10-i, &randomGenerator);

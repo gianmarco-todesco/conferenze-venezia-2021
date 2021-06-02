@@ -25,7 +25,8 @@
 
 camera {
   location CameraPos
-  // right x*1280/720 
+  right x * image_width / image_height
+  
   look_at <0,2.5,0>
   angle 55
 } 

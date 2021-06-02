@@ -3,6 +3,7 @@
 
 #include <QPointF>
 #include <QList>
+#include <QImage>
 
 struct IMat;
 struct Node;
@@ -13,6 +14,18 @@ class Hilbert : public Figure
 public:
 	void paint(QPainter& pa, int w, int h) override;
 	void build(QList<Node>& nodes, int level, const IMat& mat);
+	void draw(QPainter& pa, int level, double size);
+	void drawGrid(QPainter& pa, int level, double size);
+};
+
+
+class Hilbert2 : public Figure
+{
+	QImage m_img, m_img2, m_img3;
+public:
+	Hilbert2();
+	void paint(QPainter& pa, int w, int h) override;
+	void build(QList<Node>& nodes, int level, int maxLevel, const IMat& mat);
 	void draw(QPainter& pa, int level, double size);
 	void drawGrid(QPainter& pa, int level, double size);
 };

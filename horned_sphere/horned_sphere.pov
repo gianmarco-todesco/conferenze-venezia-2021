@@ -5,7 +5,7 @@
 #if(clock_on =1)
 #declare Clock = clock;
 #else
-#declare Clock = 80/200;
+#declare Clock = 50/200;
 #end
 
 #declare TargetPos = <-0.33,3.35,0>;
@@ -25,7 +25,7 @@
 
 camera {
   location CameraPos
-  right x*1280/720 
+  right x*image_width/image_height
   look_at
     0 + <0,2,0>*SmoothStep(0.0,0.1) + <-0.33,1.35,0>*SmoothStep(0.1,0.2)
       + <0.33,-1.0,-0.1>*SmoothStep(0.8,1.0)

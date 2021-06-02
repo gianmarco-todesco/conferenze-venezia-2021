@@ -1,7 +1,7 @@
 #include "Hilbert.h"
 #include <QPainter>
 #include <QPainterPath>
-
+#include <QDebug>
 
 
 struct IMat {
@@ -123,4 +123,171 @@ void Hilbert::build(QList<Node>& nodes, int level, const IMat& mat)
 
 
 	}
+}
+
+
+
+//=============================================================================
+
+Hilbert2::Hilbert2()
+{
+	m_img.load("data/michele_128.png");
+	m_img2 = m_img.scaled(m_img.width() / 2, m_img.height() / 2);
+	m_img3 = m_img.scaled(m_img.width() / 4, m_img.height() / 4);
+	qDebug() << m_img.size();
+}
+
+void Hilbert2::paint(QPainter& pa, int w, int h)
+{
+	double size = qMin(w, h) * 0.9;
+	pa.save();
+	pa.translate(w/2,h/2);
+	draw(pa, 9, size);
+	pa.restore();
+}
+
+
+void Hilbert2::build(QList<Node>& nodes, int level, int maxLevel, const IMat& mat)
+{
+	if (level == 1)
+	{
+		int off = (2 << maxLevel) - 4;
+		QPoint p = mat * QPoint(0, 0);
+		int ix = (p.x() + off);
+		int iy = (p.y() + off);
+		Q_ASSERT(ix >= 0);
+		Q_ASSERT(iy >= 0);
+		Q_ASSERT((ix % 8) == 0);
+		Q_ASSERT((iy % 8) == 0);
+		Q_ASSERT(ix <= 2 * off);
+		Q_ASSERT(iy <= 2 * off);
+		Q_ASSERT(ix / 8 <= (1 << (maxLevel - 1)) - 1);
+		Q_ASSERT(iy / 8 <= (1 << (maxLevel - 1)) - 1);
+
+		int max = 1 << (maxLevel - 1);
+		Q_ASSERT(max == 256);
+		Q_ASSERT(m_img.width() == 256);
+		Q_ASSERT(m_img.height() == 256);
+		ix /= 8;
+		iy /= 8;
+
+		Q_ASSERT(0 <= ix && ix < max);
+		Q_ASSERT(0 <= iy && iy < max);
+		if (m_img.pixelColor(QPoint(ix, iy)).value() > 127) level = 0;
+	}
+	else if (level == 2)
+	{
+		int off = (2 << maxLevel) - 8;
+		QPoint p = mat * QPoint(0, 0);
+		int ix = (p.x() + off);
+		int iy = (p.y() + off);
+		Q_ASSERT(ix >= 0);
+		Q_ASSERT(iy >= 0);
+		Q_ASSERT((ix % 16) == 0);
+		Q_ASSERT((iy % 16) == 0);
+		Q_ASSERT(ix <= 2 * off);
+		Q_ASSERT(iy <= 2 * off);
+		Q_ASSERT(ix / 16 <= (1 << (maxLevel - 2)) - 1);
+		Q_ASSERT(iy / 16 <= (1 << (maxLevel - 2)) - 1);
+
+		int max = 1 << (maxLevel - 2);
+		Q_ASSERT(max == 128);
+		Q_ASSERT(m_img2.width() == max);
+		Q_ASSERT(m_img2.height() == max);
+		ix /= 16;
+		iy /= 16;
+		Q_ASSERT(0 <= ix && ix < max);
+		Q_ASSERT(0 <= iy && iy < max);
+
+		if (m_img2.pixelColor(QPoint(ix, iy)).value() > 200) level = 0;
+	}
+	else if (level == 3)
+	{
+		int off = (2 << maxLevel) - 16;
+		QPoint p = mat * QPoint(0, 0);
+		int ix = (p.x() + off);
+		int iy = (p.y() + off);
+		Q_ASSERT(ix >= 0);
+		Q_ASSERT(iy >= 0);
+		Q_ASSERT((ix % 32) == 0);
+		Q_ASSERT((iy % 32) == 0);
+		Q_ASSERT(ix <= 2 * off);
+		Q_ASSERT(iy <= 2 * off);
+		Q_ASSERT(ix / 32 <= (1 << (maxLevel - 3)) - 1);
+		Q_ASSERT(iy / 32 <= (1 << (maxLevel - 3)) - 1);
+
+		int max = 1 << (maxLevel - 3);
+		Q_ASSERT(max == 64);
+		Q_ASSERT(m_img3.width() == max);
+		Q_ASSERT(m_img3.height() == max);
+		ix /= 32;
+		iy /= 32;
+		Q_ASSERT(0 <= ix && ix < max);
+		Q_ASSERT(0 <= iy && iy < max);
+
+		if (m_img3.pixelColor(QPoint(ix, iy)).value() > 240) level = 0;
+
+	}
+
+	if (level == 0)
+	{
+		Node node;
+		node.pts[0] = mat * QPointF(-1.0, 1.0);
+		node.pts[1] = mat * QPointF(-1.0, -1.0);
+		node.pts[2] = mat * QPointF(1.0, -1.0);
+		node.pts[3] = mat * QPointF(1.0, 1.0);
+		nodes.push_back(node);
+	}
+	else
+	{
+		double unit = 1 << (level);
+		build(nodes, level - 1, maxLevel, mat * IMat(0, -1, -1, 0, -unit, unit));
+		build(nodes, level - 1, maxLevel, mat * IMat(1, 0, 0, 1, -unit, -unit));
+		build(nodes, level - 1, maxLevel, mat * IMat(1, 0, 0, 1, unit, -unit));
+		build(nodes, level - 1, maxLevel, mat * IMat(0, 1, 1, 0, unit, unit));
+
+
+	}
+}
+
+void Hilbert2::draw(QPainter& pa, int level, double size)
+{
+	// drawGrid(pa, level, size);
+	QList<Node> nodes;
+	build(nodes, level, level, IMat());
+
+	const double unit = size / (2.0 * (2 << level));
+
+
+	QPainterPath pp;
+	for (int i = 0; i < nodes.count(); i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			QPointF p = nodes[i].pts[j] * unit;
+			if (i == 0 && j == 0) pp.moveTo(p); else pp.lineTo(p);
+		}
+	}
+	pa.setPen(QPen(Qt::black, 0));
+	pa.drawPath(pp);
+}
+
+void Hilbert2::drawGrid(QPainter& pa, int level, double size)
+{
+	int m = 2 << level;
+
+	const double unit = size / (2.0 * m);
+	double limit = size / 2.0;
+
+	pa.setPen(QPen(QColor(220, 220, 220), 0));
+	pa.setBrush(Qt::NoBrush);
+	QPainterPath pp;
+	for (int i = -m; i <= m; i++)
+	{
+		pp.moveTo(-limit, unit * i);
+		pp.lineTo(limit, unit * i);
+		pp.moveTo(unit * i, -limit);
+		pp.lineTo(unit * i, limit);
+	}
+	pa.drawPath(pp);
 }

@@ -24,7 +24,8 @@
 
 
 camera {
-  location CameraPos
+  location CameraPos   
+  right x * image_width / image_height
   // right x*1280/720 
   look_at
     0 + <0,2,0>*SmoothStep(0.0,0.1) + <-0.33,1.35,0>*SmoothStep(0.1,0.2)

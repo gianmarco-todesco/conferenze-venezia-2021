@@ -3,10 +3,13 @@
 #include "Hanoi.h"
 #include "Dragon.h"
 #include "Hilbert.h"
+#include "Peano.h"
 #include "Sierpinski.h"
 #include "ChaosGame.h"
 #include "BarnsleyFern.h"
-#include "Cloud.h"
+#include "Tree.h"
+// #include "Cloud.h"
+#include "MengerSpongeSections.h"
 
 
 #include <QKeyEvent>
@@ -22,26 +25,28 @@ Viewer::Viewer(QWidget *parent)
 	// Dragon2().save("fig6b.png");
 	// Dragon4(15).save("fig8.png");
 	// Hilbert().save("fig9.png");
+	
+	Peano().save("fig10.png");
+
 	// Sierpinski().save("fig11.png");
 	// Sierpinski2().save("fig12.png");
 	// HanoiGraph(4).save("fig13.png");
 	// ChaosGame(0).save("fig14.png");
-	ChaosGame(1).save("fig15.png");
+	// ChaosGame(1).save("fig15.png");
 	// BarnsleyFern(1).save("fig16a.png");
 	// BarnsleyFern(2).save("fig16b.png");
+	// Tree().save("fig17.png");
+	// Cloud().save("fig18.png");
+	// MengerSpongeSections().save("fig19.png");
+
 }
 
 Viewer::~Viewer()
 {
 }
 
-// A = n*0.4
-// B = n*0.8
-int A = (1<<16)*0.4, B = (1<<16)*0.8;
-int imask = 15;
-int level = 0;
-
-BarnsleyFern fern(2);
+// double S=0.9, A=30;
+int Seed = 1234581;
 
 void Viewer::paintEvent(QPaintEvent*)
 {
@@ -61,25 +66,35 @@ void Viewer::paintEvent(QPaintEvent*)
 	// Dragon4(15).paint(pa, w, h);
 
 	// Hilbert().paint(pa, w, h);
+	Peano().paint(pa, w, h);
+	// Hilbert2().paint(pa, w, h);
+
 	// Sierpinski().paint(pa, w, h);
 	// Sierpinski2().paint(pa, w, h);
 
 	// HanoiGraph(4).paint(pa, w, h);
 
-	ChaosGame(1).paint(pa, w, h);
+	// ChaosGame(1).paint(pa, w, h);
+	// BarnsleyFern(1).paint(pa, w, h);
+	// BarnsleyFern(2).paint(pa, w, h);
 	// fern.paint(pa, w, h);
-	// Cloud().paint(pa, w, h);
+	// Tree().paint(pa,w,h);
+	// Cloud(Seed).paint(pa, w, h);
+
+	// MengerSpongeSections().paint(pa, w, h);
 }
 
 void Viewer::keyPressEvent(QKeyEvent*e)
 {
-	if (e->key() == Qt::Key_A)level++; 
-	else if (e->key() == Qt::Key_S) { if (level > 0) level--; }
+	//if (e->key() == Qt::Key_A) Seed -= 1;
+	//else if (e->key() == Qt::Key_S) Seed += 1;
+	qDebug() << Seed;
 	update();
+
 }
 
 void Viewer::mousePressEvent(QMouseEvent*e)
 {
-	fern.click(e->pos().x(), e->pos().y());
+	// fern.click(e->pos().x(), e->pos().y());
 	update();
 }
