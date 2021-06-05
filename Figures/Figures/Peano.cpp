@@ -13,7 +13,7 @@ Peano::Peano()
 void Peano::buildImages()
 {
 	QImage img;
-	img.load("data/michele_243.png");
+	img.load("data/michele_243b.png");
 	Q_ASSERT(img.width() == 243);
 	Q_ASSERT(img.height() == 243);
 

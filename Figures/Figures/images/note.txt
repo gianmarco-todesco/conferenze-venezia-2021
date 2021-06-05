@@ -1,0 +1,97 @@
+fig.1
+The shortest solution (15 steps) for the Hanoi Tower Puzzle with 4 disks
+(OK)
+
+fig.2
+A non optimal solution (53 steps). The solution contains no repetition.
+(OK)
+
+
+fig.3
+A Python program to compute the anagrams of "image".
+(sul portatile)
+
+fig.4
+The original 1904 Droste cacao tin, designed by Jan Misset (1861–1931)
+[image is in the public domain]
+(OK)
+
+fig.5
+An expample of the Droste Effect. Made with GIMP (GNU Image Manipulation Program) and the MathMap plugin.
+(sul portatile)
+
+fig.6 
+(a) The Dragon Curve: first 12 steps  
+(b) 18-th step 
+(OK; sarebbe bello evidenziare le repliche e il modo regolare in cui riempie il piano)
+
+fig.7
+Some commands in the JavaScript language to draw the Dragon Curve with an Internet Browser (e.g. Google Chrome).
+Create a new tab, them open the console (ctrl + shift + J). Copy very carefully the code in the console and hit return.  
+(sul portatile)
+
+
+fig.8
+The Dragon Curve can tessellate the plane.
+(OK; sarebbe bello disegnare i contorni)
+
+fig.9
+The Hilbert Curve can fill a square
+(OK)
+
+fig.10
+(DAFARE)
+
+fig.11
+The Sierpiński triangle 
+(OK)
+
+fig.12
+The Sierpiński curve 
+(OK)
+
+fig.13
+The graph of the available moves in the Hanoi Towers Puzzle.
+(OK)
+
+fig.14
+The Chaos Game: first 100'000 points. The first few steps are highlighted.
+(OK: qualche messa a punto minore)
+
+fig.15
+A variant of the Chaos Game with five vertices; 5'000'000 points.
+(OK)
+
+fig.16
+(a) The Barnsley Fern; 3'000'000 points
+(b) The four affine transformations that create the Barnsley Fern.
+(OK; in (b) bisognerebbe evitare che la parte verde diventi più scura)
+
+fig.17
+A deterministic recursive tree (no random parameters); 18 levels of recursion
+(OK)
+
+fig.18
+A level-5 Menger Sponge
+
+fig.19
+The 16 different sections for a level-4 Menger Sponge
+
+fig.20
+A non-orthogonal section of the level-5 Menger Sponge.
+
+fig.21
+The first recursion steps for the Alexander's horned sphere
+
+
+
+
+
+
+
+
+
+
+
+
+
