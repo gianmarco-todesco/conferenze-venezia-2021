@@ -30,3 +30,14 @@ public:
 	void drawGrid(QPainter& pa, int level, double size);
 };
 
+
+
+class Hilbert3 : public Figure
+{
+	int m_level;
+public:
+	Hilbert3(int level = 0) : m_level(level) {}
+	void paint(QPainter& pa, int w, int h) override;
+	void foobar();
+};
+

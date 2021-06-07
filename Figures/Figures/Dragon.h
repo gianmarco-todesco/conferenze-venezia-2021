@@ -45,3 +45,11 @@ public:
 	Dragon4(int mask) : m_mask(mask) {};
 	void paint(QPainter& pa, int w, int h) override;
 };
+
+class Dragon5 : public Dragon
+{
+	int m_level;
+public:
+	Dragon5(int level) : m_level(level) {}
+	void paint(QPainter& pa, int w, int h) override;
+};

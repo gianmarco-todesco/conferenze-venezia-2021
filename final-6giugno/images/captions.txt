@@ -1,0 +1,48 @@
+Figure 1 The shortest solution (15 steps) for the Tower of Hanoi puzzle with 4 disks
+
+Figure 2 A non-optimal solution (53 steps). The solution, although inefficient, contains no repetitions.
+
+Figure 3 A Python program that generates all the anagrams of the word 'image'
+
+Figure 4 The original 1904 Droste cacao tin, designed by Jan Misset (1861–1931)
+
+Figure 5 The "Droste Effect" in action.
+
+Figure 6 First steps of the generation of the Heighway Dragon Curve
+
+Figure 7 Level-20 Dragon Curve
+
+Figure 8 A JavaScript code to draw the Dragon Curve in a Internet Browser.
+
+Figure 9 Many copies of the Dragon Curve can tessellate the whole plane
+
+Figure 10 The first steps of the Hilbert Curve 
+
+Figure 11 Hilbert curve with a recursion level depending on the point. The whole drawing is made of a single stroke with same color and thickness.
+
+Figure 12 The first steps of the Sierpiński triangle
+
+Figure 13 The Sierpiński triangle as a curve
+
+Figure 14 The complete graph of moves for the Tower of Hanoi puzzle with 4 disks
+
+Figure 15 The Chaos Game. 100'000 points. The first 10 are highlighted
+
+Figure 16 The Chaos Game with 5 vertices. 5'000'000 points
+
+Figure 17 The Barnsley Fern
+
+Figure 18 The four transformations used to create the Barnsley fern
+
+Figure 19 A deterministic recursive tree (no random parameters); 18 levels of recurson
+
+Figure 20 A level-5 Menger Sponge
+
+Figure 21 The 16 different sections for a level-4 Menger Sponge
+
+Figure 22 A level-5 Menger Sponge cut with a non orthogonal plane
+
+Figure 23 First steps in building the Alexander's Horned Sphere
+
+Figure 24 The Alexander’s Horned Sphere at level-8 of recursion
+

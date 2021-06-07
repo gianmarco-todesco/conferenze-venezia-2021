@@ -6,7 +6,9 @@ void Figure::save(const QString& fname)
 {
 	int w=2048, h=1536;
 
-	w *= 4; h *= 4;
+	double s = paperScaleFactor();
+	w *= s;
+	h *= s;
 
 	QImage image(w, h, QImage::Format_RGB32);
 	QPainter pa;

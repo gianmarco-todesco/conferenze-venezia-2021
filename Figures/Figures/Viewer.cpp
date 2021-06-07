@@ -20,24 +20,25 @@ Viewer::Viewer(QWidget *parent)
 	: QWidget(parent)
 {
 	// HanoiShortestPath(4).save("fig1.png");
-	// HanoiLongestPath(4).save("fig2.png");
-	// Dragon1().save("fig6a.png");
-	// Dragon2().save("fig6b.png");
-	// Dragon4(15).save("fig8.png");
-	// Hilbert().save("fig9.png");
+    // HanoiLongestPath(4).save("fig2.png");
+	// Dragon1().save("fig6.png");
+	// Dragon2().save("fig7.png");
+	// Dragon4(15).save("fig9.png");
+	// Hilbert().save("fig10.png");
 	
-	Peano().save("fig10.png");
-
-	// Sierpinski().save("fig11.png");
-	// Sierpinski2().save("fig12.png");
-	// HanoiGraph(4).save("fig13.png");
-	// ChaosGame(0).save("fig14.png");
-	// ChaosGame(1).save("fig15.png");
-	// BarnsleyFern(1).save("fig16a.png");
-	// BarnsleyFern(2).save("fig16b.png");
-	// Tree().save("fig17.png");
+	// Peano().save("fig10.png");
+	// Hilbert3(8).foobar();
+	// Hilbert3(9).save("prova2.png");
+	// Sierpinski().save("fig12.png");
+	// Sierpinski2().save("fig13.png");
+	// HanoiGraph(4).save("fig14.png");
+	// ChaosGame(0).save("fig15.png");
+	// ChaosGame(1).save("fig16.png");
+	// BarnsleyFern(1).save("fig17.png");
+	// BarnsleyFern(2).save("fig18.png");
+	// Tree().save("fig19.png");
 	// Cloud().save("fig18.png");
-	// MengerSpongeSections().save("fig19.png");
+	// MengerSpongeSections().save("fig21.png");
 
 }
 
@@ -48,6 +49,7 @@ Viewer::~Viewer()
 // double S=0.9, A=30;
 int Seed = 1234581;
 
+int level = 5;
 void Viewer::paintEvent(QPaintEvent*)
 {
 	QPainter pa(this);
@@ -64,10 +66,11 @@ void Viewer::paintEvent(QPaintEvent*)
 	
 	// Dragon2().paint(pa, w, h);
 	// Dragon4(15).paint(pa, w, h);
+	Dragon5(level).paint(pa, w, h);
 
 	// Hilbert().paint(pa, w, h);
-	Peano().paint(pa, w, h);
-	// Hilbert2().paint(pa, w, h);
+	// Peano().paint(pa, w, h);
+	// Hilbert3(level).paint(pa, w, h);
 
 	// Sierpinski().paint(pa, w, h);
 	// Sierpinski2().paint(pa, w, h);
@@ -86,9 +89,10 @@ void Viewer::paintEvent(QPaintEvent*)
 
 void Viewer::keyPressEvent(QKeyEvent*e)
 {
-	//if (e->key() == Qt::Key_A) Seed -= 1;
-	//else if (e->key() == Qt::Key_S) Seed += 1;
-	qDebug() << Seed;
+	if (e->key() == Qt::Key_A) level+=2;
+	else if (e->key() == Qt::Key_S) {
+		if (level > 1) level-=2;
+	}
 	update();
 
 }

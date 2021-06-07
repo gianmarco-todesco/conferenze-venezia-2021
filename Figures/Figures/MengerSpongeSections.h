@@ -11,5 +11,6 @@ public:
 	void paint(QPainter& pa, int w, int h) override;
 
 	void buildImages(int level);
+	double paperScaleFactor() const override { return 2.0; }
 };
 

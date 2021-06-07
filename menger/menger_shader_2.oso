@@ -1,6 +1,6 @@
 OpenShadingLanguage 1.00
-# Compiled by oslc 1.10.9
-# options: -o C:\Users\gmt\AppData\Local\Temp\tmpwyzcyv64.oso -IC:\Program Files\Blender Foundation\Blender 2.83\2.83\scripts\addons\cycles\shader
+# Compiled by oslc 1.10.10
+# options: -o C:\Users\GMT\Documents\conferenze\venezia2021\conferenze-venezia-2021\menger\menger_shader_2.oso -IC:\Program Files\Blender Foundation\Blender 2.92\2.92\scripts\addons\cycles\shader
 shader menger_shader
 param	float	size	4		%read{1,11} %write{2147483647,-1}
 oparam	float	Alpha	0.5		%read{2147483647,-1} %write{18,48}
@@ -46,83 +46,83 @@ temp	int	$tmp21	%read{18,47} %write{18,47}
 const	float	$const9	0		%read{44,44} %write{2147483647,-1}
 temp	int	$tmp22	%read{2147483647,-1} %write{18,47}
 code ___main___
-# C:\Users\gmt\Documents\conferenze\venezia2021\conferenze-venezia-2021\menger\menger_shader_2.osl:30
-#     float x = (P[0]+0.5*size)/size;
-	compref		$tmp1 P $const1 	%filename{"C:\Users\gmt\Documents\conferenze\venezia2021\conferenze-venezia-2021\menger\menger_shader_2.osl"} %line{30} %argrw{"wrr"}
+# menger_shader_2.osl:31
+#     float y = (P[1]+0.5*size)/size;
+	compref		$tmp1 P $const1 	%filename{"menger_shader_2.osl"} %line{31} %argrw{"wrr"}
 	mul		$tmp2 $const2 size 	%argrw{"wrr"}
 	add		$tmp3 $tmp1 $tmp2 	%argrw{"wrr"}
 	div		x $tmp3 size 	%argrw{"wrr"}
-# C:\Users\gmt\Documents\conferenze\venezia2021\conferenze-venezia-2021\menger\menger_shader_2.osl:31
-#     float y = (P[1]+0.5*size)/size;
-	compref		$tmp4 P $const3 	%line{31} %argrw{"wrr"}
+# menger_shader_2.osl:32
+#     float z = (P[2]+0.5*size)/size;
+	compref		$tmp4 P $const3 	%line{32} %argrw{"wrr"}
 	mul		$tmp5 $const2 size 	%argrw{"wrr"}
 	add		$tmp6 $tmp4 $tmp5 	%argrw{"wrr"}
 	div		y $tmp6 size 	%argrw{"wrr"}
-# C:\Users\gmt\Documents\conferenze\venezia2021\conferenze-venezia-2021\menger\menger_shader_2.osl:32
-#     float z = (P[2]+0.5*size)/size;
-	compref		$tmp7 P $const4 	%line{32} %argrw{"wrr"}
+# menger_shader_2.osl:33
+#     
+	compref		$tmp7 P $const4 	%line{33} %argrw{"wrr"}
 	mul		$tmp8 $const2 size 	%argrw{"wrr"}
 	add		$tmp9 $tmp7 $tmp8 	%argrw{"wrr"}
 	div		z $tmp9 size 	%argrw{"wrr"}
-# C:\Users\gmt\Documents\conferenze\venezia2021\conferenze-venezia-2021\menger\menger_shader_2.osl:34
-#     Alpha = menger(x, y , z );    
-	functioncall	$const5 49 	%line{34} %argrw{"r"}
-# C:\Users\gmt\Documents\conferenze\venezia2021\conferenze-venezia-2021\menger\menger_shader_2.osl:3
-#     float x = ix * 3.0;
-	mul		___363_x x $const6 	%line{3} %argrw{"wrr"}
-# C:\Users\gmt\Documents\conferenze\venezia2021\conferenze-venezia-2021\menger\menger_shader_2.osl:4
+# menger_shader_2.osl:35
+# }
+	functioncall	$const5 49 	%line{35} %argrw{"r"}
+# menger_shader_2.osl:4
 #     float y = iy * 3.0;
-	mul		___363_y y $const6 	%line{4} %argrw{"wrr"}
-# C:\Users\gmt\Documents\conferenze\venezia2021\conferenze-venezia-2021\menger\menger_shader_2.osl:5
+	mul		___363_x x $const6 	%line{4} %argrw{"wrr"}
+# menger_shader_2.osl:5
 #     float z = iz * 3.0;
-	mul		___363_z z $const6 	%line{5} %argrw{"wrr"}
-# C:\Users\gmt\Documents\conferenze\venezia2021\conferenze-venezia-2021\menger\menger_shader_2.osl:10
-#     for(int i=0; i<5; i++) 
-	for		$tmp11 18 20 46 48 	%line{10} %argrw{"r"}
+	mul		___363_y y $const6 	%line{5} %argrw{"wrr"}
+# menger_shader_2.osl:6
+#     
+	mul		___363_z z $const6 	%line{6} %argrw{"wrr"}
+# menger_shader_2.osl:11
+#     {
+	for		$tmp11 18 20 46 48 	%line{11} %argrw{"r"}
 	assign		___364_i $const1 	%argrw{"wr"}
 	lt		$tmp10 ___364_i $const7 	%argrw{"wrr"}
 	neq		$tmp11 $tmp10 $const1 	%argrw{"wrr"}
-# C:\Users\gmt\Documents\conferenze\venezia2021\conferenze-venezia-2021\menger\menger_shader_2.osl:13
-#         c = 0;
-	assign		___363_c $const1 	%line{13} %argrw{"wr"}
-# C:\Users\gmt\Documents\conferenze\venezia2021\conferenze-venezia-2021\menger\menger_shader_2.osl:14
+# menger_shader_2.osl:14
 #         p = floor(x); x = 3.0*(x-p); if(p==1.0) c++;
-	floor		___363_p ___363_x 	%line{14} %argrw{"wr"}
+	assign		___363_c $const1 	%line{14} %argrw{"wr"}
+# menger_shader_2.osl:15
+#         p = floor(y); y = 3.0*(y-p); if(p==1.0) c++;
+	floor		___363_p ___363_x 	%line{15} %argrw{"wr"}
 	sub		$tmp12 ___363_x ___363_p 	%argrw{"wrr"}
 	mul		___363_x $const6 $tmp12 	%argrw{"wrr"}
 	eq		$tmp13 ___363_p $const8 	%argrw{"wrr"}
 	if		$tmp13 28 28 	%argrw{"r"}
 	assign		$tmp14 ___363_c 	%argrw{"wr"}
 	add		___363_c ___363_c $const3 	%argrw{"wrr"}
-# C:\Users\gmt\Documents\conferenze\venezia2021\conferenze-venezia-2021\menger\menger_shader_2.osl:15
-#         p = floor(y); y = 3.0*(y-p); if(p==1.0) c++;
-	floor		___363_p ___363_y 	%line{15} %argrw{"wr"}
+# menger_shader_2.osl:16
+#         p = floor(z); z = 3.0*(z-p); if(p==1.0) c++;
+	floor		___363_p ___363_y 	%line{16} %argrw{"wr"}
 	sub		$tmp15 ___363_y ___363_p 	%argrw{"wrr"}
 	mul		___363_y $const6 $tmp15 	%argrw{"wrr"}
 	eq		$tmp16 ___363_p $const8 	%argrw{"wrr"}
 	if		$tmp16 35 35 	%argrw{"r"}
 	assign		$tmp17 ___363_c 	%argrw{"wr"}
 	add		___363_c ___363_c $const3 	%argrw{"wrr"}
-# C:\Users\gmt\Documents\conferenze\venezia2021\conferenze-venezia-2021\menger\menger_shader_2.osl:16
-#         p = floor(z); z = 3.0*(z-p); if(p==1.0) c++;
-	floor		___363_p ___363_z 	%line{16} %argrw{"wr"}
+# menger_shader_2.osl:17
+#     
+	floor		___363_p ___363_z 	%line{17} %argrw{"wr"}
 	sub		$tmp18 ___363_z ___363_p 	%argrw{"wrr"}
 	mul		___363_z $const6 $tmp18 	%argrw{"wrr"}
 	eq		$tmp19 ___363_p $const8 	%argrw{"wrr"}
 	if		$tmp19 42 42 	%argrw{"r"}
 	assign		$tmp20 ___363_c 	%argrw{"wr"}
 	add		___363_c ___363_c $const3 	%argrw{"wrr"}
-# C:\Users\gmt\Documents\conferenze\venezia2021\conferenze-venezia-2021\menger\menger_shader_2.osl:18
-#         if(c>=2) return 0.0;
-	ge		$tmp21 ___363_c $const4 	%line{18} %argrw{"wrr"}
+# menger_shader_2.osl:19
+#     }
+	ge		$tmp21 ___363_c $const4 	%line{19} %argrw{"wrr"}
 	if		$tmp21 46 46 	%argrw{"r"}
 	assign		Alpha $const9 	%argrw{"wr"}
 	return
-# C:\Users\gmt\Documents\conferenze\venezia2021\conferenze-venezia-2021\menger\menger_shader_2.osl:10
-#     for(int i=0; i<5; i++) 
-	assign		$tmp22 ___364_i 	%line{10} %argrw{"wr"}
+# menger_shader_2.osl:11
+#     {
+	assign		$tmp22 ___364_i 	%line{11} %argrw{"wr"}
 	add		___364_i ___364_i $const3 	%argrw{"wrr"}
-# C:\Users\gmt\Documents\conferenze\venezia2021\conferenze-venezia-2021\menger\menger_shader_2.osl:22
-#     return 1.0;    
-	assign		Alpha $const8 	%line{22} %argrw{"wr"}
+# menger_shader_2.osl:23
+# 
+	assign		Alpha $const8 	%line{23} %argrw{"wr"}
 	end

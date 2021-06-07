@@ -1,7 +1,7 @@
 #include "Dragon.h"
 #include <QPainterPath>
 #include <QPainter>
-
+#include <QDebug>
 const double PI = 4.0 * atan(1.0);
 
 void Dragon::makeDragon(QList<QPointF>& pts, int level, QPointF p0, QPointF p1, double sgn)
@@ -286,6 +286,120 @@ void Dragon4::paint(QPainter& pa, int w, int h)
 	pa.setPen(QPen(Qt::black, 0));
 	pa.drawPath(pp);
 
+
+	pa.restore();
+}
+
+
+
+// ============================================================================
+
+
+void buildPoints(QList<QPoint> &pts, int level, int x0, int y0, int x1, int y1)
+{
+	int xm = (x0 + x1) / 2;
+	int ym = (y0 + y1) / 2;
+	if (level == 0)
+	{
+		pts.append(QPoint(xm, ym));
+	}
+	else 
+	{
+		int dx = (y1 - y0) / 2;
+		int dy = (x0 - x1) / 2;
+		int x = xm + dx;
+		int y = ym + dy;
+		buildPoints(pts, level - 1, x0, y0, x, y);
+		buildPoints(pts, level - 1, x1, y1, x, y);
+
+	}
+}
+
+void Dragon5::paint(QPainter& pa, int w, int h)
+{
+	int unit = 1.0;
+
+	QList<QPoint> pts;
+	int level = m_level;
+	buildPoints(pts, level, 0, 0, 1 << (level/2+1), 0);
+	pa.save();
+	pa.translate(w / 2, h / 2);
+	pa.setPen(QPen(QColor(10,100,150), 0));
+	pa.setBrush(QColor(10, 100, 150));
+	for (QPoint p : pts)
+	{
+		pa.fillRect(p.x() * unit - unit * 0.5, p.y() * unit - unit * 0.5, unit, unit, QColor(10, 100, 150));
+	}
+
+	int x0, y0, x1, y1;
+	x0 = x1 = pts.first().x();
+	y0 = y1 = pts.first().y();
+	for (QPoint p : pts)
+	{
+		if (p.x() > x1)x1 = p.x();
+		else if (p.x() < x0)x0 = p.x();
+		if (p.y() > y1)y1 = p.y();
+		else if (p.y() < y0)y0 = p.y();
+	}
+	x0 -= 1;
+	y0 -= 1;
+	x1 += 1;
+	y1 += 1;
+
+	int lx = x1 - x0 + 1;
+	int ly = y1 - y0 + 1;
+	QVector<char> buffer(lx * ly, 0);
+	for (QPoint p : pts)
+	{
+		int x = p.x() - x0;
+		int y = p.y() - y0;
+		buffer[y  * lx + x] = 1;
+	}
+
+	for (int x = 0; x < lx; x++) buffer[x] == 0;
+	int qx = 0, qy = 1;
+	for (; qx < lx && buffer[qy * lx + qx] == 0; qx++) {}
+	Q_ASSERT(qx < lx);
+	Q_ASSERT(buffer[qy * lx + qx] != 0);
+	Q_ASSERT(buffer[(qy-1) * lx + qx] == 0);
+	int dir = 0;
+
+	
+
+	// QList<QPoint> boundary;
+	QPoint startPoint(x0 + qx, y0 + qy);
+	QPainterPath pp;
+	pp.moveTo(startPoint.x() * unit - unit * 0.5, startPoint.y() * unit - unit * 0.5);
+	int count = 0;
+	for (int i = 0; i < 1'000'000; i++)
+	{
+		count++;
+		int k = qy * lx + qx;
+		// boundary.append(QPoint(x0 + qx, y0 + qy));
+		// if (boundary.count() > 1 && boundary.last() == boundary.first()) break;
+		int a, b, c, d;
+		if (dir == 0) { a = k; b = k - lx; c = k - lx + 1; d = k + 1; qx++; }
+		else if (dir == 1) { a = k - 1; b = k; c = k + lx; d = k + lx - 1; qy++; }
+		else if (dir == 2) { a = k - 1 - lx; b = k - 1; c = k - 2; d = k - 2 - lx; qx--; }
+		else if (dir == 3) { a = k - lx; b = k - lx - 1; c = k - 1 - 2 * lx; d = k - 2 * lx; qy--; }
+		else
+		{
+			Q_ASSERT(false);
+		}
+		QPoint p(x0 + qx, y0 + qy);
+		if (p == startPoint) break;
+		pp.lineTo(p.x() * unit - unit * 0.5, p.y() * unit - unit * 0.5);
+
+		Q_ASSERT(buffer[a] != 0);
+		Q_ASSERT(buffer[b] == 0);
+		if (buffer[d] == 0) { dir = (dir + 1) % 4;  }
+		else if (buffer[c] == 0) {} 
+		else { dir = (dir + 3) % 4; }
+	}
+
+	qDebug() << count;
+	pa.setPen(QPen(Qt::black, 0));
+	pa.drawPath(pp);
 
 	pa.restore();
 }
