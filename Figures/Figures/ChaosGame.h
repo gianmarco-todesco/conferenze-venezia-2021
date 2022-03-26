@@ -15,5 +15,6 @@ public:
 		int pointsCount;
 	};
 	void paint(QPainter& pa, const Params &params);
+	double paperScaleFactor() const override { return 2.0; }
 };
 

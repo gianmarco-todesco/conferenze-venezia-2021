@@ -300,7 +300,7 @@ public:
 	QList<QImage> m_images;
 
 	// MipMap() { load("data/abate512.png");  }
-	MipMap() { load("data/venezia512.png"); }
+	MipMap() { load("data\\venice-512.png"); }
 	void load(const QString& filename);
 };
 
@@ -459,7 +459,7 @@ QImage makeHilbertSample(int imgLevel, int hLevel)
 	pa.save();
 	pa.translate(sz / 2, sz / 2);
 
-	int m = 2 << hLevel; // metà del numero di quadretti
+	int m = 2 << hLevel; // metï¿½ del numero di quadretti
 	double unit = 0.25 * (1<<(imgLevel-hLevel)); // dimensioni di un quadretto
 
 	HilberPainter hpa(pa, hLevel, unit);
@@ -489,7 +489,7 @@ void Hilbert3::paint(QPainter& pa, int w, int h)
 
 
 	int level = m_level;
-	int m = 2 << level; // metà del numero di quadretti
+	int m = 2 << level; // metï¿½ del numero di quadretti
 	double unit = 0.499 * qMin(w / m, h / m); // dimensioni di un quadretto
 	double limit = unit * m ;
 
@@ -510,6 +510,39 @@ void Hilbert3::paint(QPainter& pa, int w, int h)
 	MipMap mipMap;
 	HilberPainter hpa(pa, level, unit, &mipMap);
 	hpa.paint();
+
+
+	pa.restore();
+}
+
+// ============================================================================
+
+void Hilbert4::paint(QPainter& pa, int w, int h)
+{
+	pa.save();
+	pa.translate(w / 2, h / 2);
+
+
+	int level = m_level;
+	int m = 2 << level; // metï¿½ del numero di quadretti
+	double unit = 0.499 * qMin(w / m, h / m); // dimensioni di un quadretto
+	double limit = unit * m;
+
+	pa.setPen(QPen(QColor(220, 220, 220), 0));
+	pa.setBrush(Qt::NoBrush);
+	QPainterPath grid;
+	for (int i = -m; i <= m; i++)
+	{
+		grid.moveTo(-limit, unit * i);
+		grid.lineTo(limit, unit * i);
+		grid.moveTo(unit * i, -limit);
+		grid.lineTo(unit * i, limit);
+	}
+	pa.drawPath(grid);
+
+	//MipMap mipMap;
+	//HilberPainter hpa(pa, level, unit, &mipMap);
+	//hpa.paint();
 
 
 	pa.restore();

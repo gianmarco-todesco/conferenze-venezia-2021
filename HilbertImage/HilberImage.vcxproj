@@ -11,11 +11,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{6ECD5E81-1631-47DA-B9FB-811396685392}</ProjectGuid>
+    <ProjectGuid>{6CDB0661-2D30-4232-BA19-761CED25F8F4}</ProjectGuid>
     <Keyword>QtVS_v304</Keyword>
     <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">10.0.19041.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">10.0.19041.0</WindowsTargetPlatformVersion>
     <QtMsBuild Condition="'$(QtMsBuild)'=='' OR !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
+    <ProjectName>HilbertImage</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
@@ -31,12 +32,14 @@
     <Import Project="$(QtMsBuild)\qt_defaults.props" />
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
-    <QtInstall>Qt5.0_64</QtInstall>
+    <QtInstall>Qt5.0</QtInstall>
     <QtModules>core;gui;widgets</QtModules>
+    <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
     <QtInstall>Qt5.0</QtInstall>
     <QtModules>core;gui;widgets</QtModules>
+    <QtBuildConfig>release</QtBuildConfig>
   </PropertyGroup>
   <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
     <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
@@ -83,36 +86,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BarnsleyFern.cpp" />
-    <ClCompile Include="ChaosGame.cpp" />
-    <ClCompile Include="Cloud.cpp" />
-    <ClCompile Include="Dragon.cpp" />
-    <ClCompile Include="Figure.cpp" />
-    <ClCompile Include="Hanoi.cpp" />
-    <ClCompile Include="Hilbert.cpp" />
-    <ClCompile Include="MengerSpongeSections.cpp" />
-    <ClCompile Include="Peano.cpp" />
-    <ClCompile Include="Sierpinski.cpp" />
-    <ClCompile Include="Tree.cpp" />
-    <ClCompile Include="Viewer.cpp" />
-    <QtRcc Include="Figures.qrc" />
+    <ClCompile Include="MipMap.cpp" />
+    <QtRcc Include="HilberImage.qrc" />
+    <QtMoc Include="HilbertImage.h" />
+    <ClCompile Include="HilbertImage.cpp" />
+    <ClCompile Include="HilberPainter.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="Viewer.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="BarnsleyFern.h" />
-    <ClInclude Include="ChaosGame.h" />
-    <ClInclude Include="Cloud.h" />
-    <ClInclude Include="Dragon.h" />
-    <ClInclude Include="Figure.h" />
-    <ClInclude Include="Hanoi.h" />
-    <ClInclude Include="Hilbert.h" />
-    <ClInclude Include="MengerSpongeSections.h" />
-    <ClInclude Include="Peano.h" />
-    <ClInclude Include="Sierpinski.h" />
-    <ClInclude Include="Tree.h" />
+    <ClInclude Include="HilbertPainter.h" />
+    <ClInclude Include="MipMap.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

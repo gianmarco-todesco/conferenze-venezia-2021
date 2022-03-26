@@ -356,7 +356,7 @@ void Dragon5::paint(QPainter& pa, int w, int h)
 		buffer[y  * lx + x] = 1;
 	}
 
-	for (int x = 0; x < lx; x++) buffer[x] == 0;
+	for (int x = 0; x < lx; x++) buffer[x] = 0;
 	int qx = 0, qy = 1;
 	for (; qx < lx && buffer[qy * lx + qx] == 0; qx++) {}
 	Q_ASSERT(qx < lx);

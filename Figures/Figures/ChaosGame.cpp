@@ -62,19 +62,35 @@ void ChaosGame::paint(QPainter& pa, const Params& params)
 	int m = params.pointsCount; 
 	QColor color;
 	if (m_mode == 0) color = QColor(0, 0, 0, 100);
-	else color = QColor(0, 0, 0, 20);
+	else color = QColor(0, 0, 0, 40);
 
+	// pa.setPen(QPen(Qt::black,0));
+	pa.setPen(Qt::NoPen);
+	pa.setBrush(color);
 	for (int i = 0; i < m; i++)
 	{
 		int j = rand() % params.vCount;
 		p = (p + pts[j]) * 0.5;
-		if (i > 10) pa.fillRect(p.x(), p.y(), 1, 1, color);
+		if (i > 10) pa.drawEllipse(p, 1, 1);
 	}
 	
 
-	pa.setPen(Qt::black);
-	pa.setBrush(Qt::black);
-	for (QPointF p : pts) pa.drawEllipse(p, 3, 3);
+	
+	// bordo
+	if (m_mode == 1)
+	{
+		pa.setBrush(Qt::NoBrush);
+		QPen pen1(Qt::black, 6);
+		pa.setPen(pen1);
+		pa.drawPath(pp);
+		QPen pen2(Qt::white, 4);
+		pa.setPen(pen2);
+		pa.drawPath(pp);
+	}
+	pa.setPen(QPen(Qt::black,4));
+	pa.setBrush(Qt::white);
+	for (QPointF p : pts) 
+		pa.drawEllipse(p, 10, 10);
 
 
 	// draw path

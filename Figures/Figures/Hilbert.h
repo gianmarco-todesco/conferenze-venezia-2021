@@ -42,3 +42,14 @@ public:
 	double paperScaleFactor() const override { return 4.0; }
 };
 
+
+class Hilbert4 : public Figure
+{
+	int m_level;
+public:
+	Hilbert4(int level) : m_level(level) {};
+	void paint(QPainter& pa, int w, int h) override;
+	double paperScaleFactor() const override { return 4.0; }
+
+};
+
