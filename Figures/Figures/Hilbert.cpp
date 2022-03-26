@@ -299,7 +299,8 @@ class MipMap {
 public:
 	QList<QImage> m_images;
 
-	MipMap() { load("data/abate512.png");  }
+	// MipMap() { load("data/abate512.png");  }
+	MipMap() { load("data/venezia512.png"); }
 	void load(const QString& filename);
 };
 

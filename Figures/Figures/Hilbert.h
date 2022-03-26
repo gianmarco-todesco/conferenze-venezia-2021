@@ -39,5 +39,6 @@ public:
 	Hilbert3(int level = 0) : m_level(level) {}
 	void paint(QPainter& pa, int w, int h) override;
 	void foobar();
+	double paperScaleFactor() const override { return 4.0; }
 };
 

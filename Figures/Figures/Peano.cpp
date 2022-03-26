@@ -13,9 +13,9 @@ Peano::Peano()
 void Peano::buildImages()
 {
 	QImage img;
-	img.load("data/michele_243b.png");
-	Q_ASSERT(img.width() == 243);
-	Q_ASSERT(img.height() == 243);
+	img.load("data/venezia_512.png");
+	//Q_ASSERT(img.width() == 243);
+	//Q_ASSERT(img.height() == 243);
 
 	QImage q(243, 243, QImage::Format_Grayscale8);
 	for (int i = 0; i < q.height(); i++)
@@ -28,7 +28,7 @@ void Peano::buildImages()
 	for (int k = 0; k < 4; k++)
 	{
 		int sz = qRound(243.0 / pow(3.0, k + 1));
-		QImage q2(243, 243, QImage::Format_Grayscale8);
+		QImage q2(512, 512, QImage::Format_Grayscale8);
 		for (int i = 0; i < sz; i++)
 		{
 			for (int j = 0; j < sz; j++)
@@ -122,7 +122,7 @@ void Peano::paint(QPainter& pa, int w, int h)
 	double sc = size / 243.0;
 	tr.translate((w - size) / 2, (h - size) / 2);
 	tr.scale(sc, sc);
-	makePath(pp, QPointF(0,0), QPointF(243.0,243.0), tr, 6);
+	makePath(pp, QPointF(0,0), QPointF(243.0,243.0), tr, 8);
 	pa.setPen(QPen(Qt::black, 3));
 	pa.setBrush(Qt::NoBrush);
 	pa.drawPath(pp);

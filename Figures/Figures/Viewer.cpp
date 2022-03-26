@@ -28,7 +28,7 @@ Viewer::Viewer(QWidget *parent)
 	
 	// Peano().save("fig10.png");
 	// Hilbert3(8).foobar();
-	// Hilbert3(9).save("prova2.png");
+	Hilbert3(9).save("prova3.png");
 	// Sierpinski().save("fig12.png");
 	// Sierpinski2().save("fig13.png");
 	// HanoiGraph(4).save("fig14.png");
@@ -66,11 +66,11 @@ void Viewer::paintEvent(QPaintEvent*)
 	
 	// Dragon2().paint(pa, w, h);
 	// Dragon4(15).paint(pa, w, h);
-	Dragon5(level).paint(pa, w, h);
+	// Dragon5(level).paint(pa, w, h);
 
 	// Hilbert().paint(pa, w, h);
 	// Peano().paint(pa, w, h);
-	// Hilbert3(level).paint(pa, w, h);
+	Hilbert3(level).paint(pa, w, h);
 
 	// Sierpinski().paint(pa, w, h);
 	// Sierpinski2().paint(pa, w, h);
@@ -89,9 +89,9 @@ void Viewer::paintEvent(QPaintEvent*)
 
 void Viewer::keyPressEvent(QKeyEvent*e)
 {
-	if (e->key() == Qt::Key_A) level+=2;
+	if (e->key() == Qt::Key_A) level+=1;
 	else if (e->key() == Qt::Key_S) {
-		if (level > 1) level-=2;
+		if (level > 1) level-=1;
 	}
 	update();
 
